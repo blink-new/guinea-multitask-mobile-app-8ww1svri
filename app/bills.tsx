@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Zap, Droplets, Wifi, Home, Receipt, Calendar, ArrowRight, CheckCircle } from 'lucide-react-native';
+import { Zap, Droplets, Wifi, Home, Receipt, Calendar, ArrowRight, CheckCircle, QrCode, Camera } from 'lucide-react-native';
 
 export default function Bills() {
   const [selectedBill, setSelectedBill] = useState(null);
@@ -93,13 +93,21 @@ export default function Bills() {
             
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Numéro Client / Référence</Text>
-              <TextInput
-                style={styles.input}
-                value={customerNumber}
-                onChangeText={setCustomerNumber}
-                placeholder="Ex: 123456789"
-                placeholderTextColor="#8E8E93"
-              />
+              <View style={styles.inputWithScanner}>
+                <TextInput
+                  style={styles.input}
+                  value={customerNumber}
+                  onChangeText={setCustomerNumber}
+                  placeholder="Ex: 123456789"
+                  placeholderTextColor="#8E8E93"
+                />
+                <TouchableOpacity 
+                  style={styles.scannerButton}
+                  onPress={() => Alert.alert('Scan Référence', 'Fonctionnalité de scan QR pour référence à implémenter')}
+                >
+                  <Camera color="#D4AF37" size={24} />
+                </TouchableOpacity>
+              </View>
             </View>
 
             {selectedBill.id !== 'rent' && (
@@ -271,6 +279,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 1,
     borderColor: '#E5E5EA',
+    flex: 1,
+  },
+  inputWithScanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E5EA',
+  },
+  scannerButton: {
+    padding: 16,
   },
   checkBillButton: {
     flexDirection: 'row',

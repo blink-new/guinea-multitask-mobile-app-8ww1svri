@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Send, Users, QrCode, Phone, Wifi, WifiOff, ArrowRight } from 'lucide-react-native';
+import { Send, Users, QrCode, Phone, Wifi, WifiOff, ArrowRight, Camera } from 'lucide-react-native';
 
 export default function Transfers() {
   const [amount, setAmount] = useState('');
@@ -141,12 +141,15 @@ export default function Transfers() {
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>
               {transferMethod === 'phone' ? 'Numéro de téléphone' : 
-               transferMethod === 'qr' ? 'Scanner QR Code' : 'Destinataire'}
+               transferMethod === 'qr' ? 'Destinataire (via QR Code)' : 'Destinataire'}
             </Text>
             {transferMethod === 'qr' ? (
-              <TouchableOpacity style={styles.qrButton}>
-                <QrCode color="#D4AF37" size={24} />
-                <Text style={styles.qrButtonText}>Scanner QR Code</Text>
+              <TouchableOpacity 
+                style={styles.qrButton}
+                onPress={() => Alert.alert('Scan QR', 'Fonctionnalité de scan QR à implémenter')}
+              >
+                <Camera color="#D4AF37" size={24} />
+                <Text style={styles.qrButtonText}>Scanner un QR Code</Text>
               </TouchableOpacity>
             ) : (
               <TextInput
@@ -329,7 +332,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    padding: 20,
+    padding: 16, // Adjusted padding for consistency
     borderWidth: 1,
     borderColor: '#D4AF37',
     gap: 12,

@@ -15,13 +15,17 @@ import {
   CreditCard,
   Moon,
   Wifi,
-  Download
+  Download,
+  Fingerprint, // Added for Biometric Auth
+  Gift,        // Added for Sponsorship
+  Star         // Added for Loyalty Program
 } from 'lucide-react-native';
 
 export default function Profile() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [offlineModeEnabled, setOfflineModeEnabled] = useState(true);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+  const [biometricAuthEnabled, setBiometricAuthEnabled] = useState(false); // New state for biometric auth
 
   const userInfo = {
     name: 'Mamadou Diallo',
@@ -69,6 +73,14 @@ export default function Profile() {
           onToggle: setDarkModeEnabled
         },
         { id: 'security', title: 'Sécurité', icon: Shield, action: 'navigate' },
+        { 
+          id: 'biometric', 
+          title: 'Authentification Biométrique', 
+          icon: Fingerprint, 
+          action: 'toggle',
+          value: biometricAuthEnabled,
+          onToggle: setBiometricAuthEnabled
+        },
       ]
     },
     {
@@ -77,6 +89,13 @@ export default function Profile() {
         { id: 'help', title: 'Centre d\'Aide', icon: HelpCircle, action: 'navigate' },
         { id: 'settings', title: 'Paramètres Avancés', icon: Settings, action: 'navigate' },
         { id: 'sync', title: 'Synchroniser les Données', icon: Download, action: 'action' },
+      ]
+    },
+    { // New Section for Sponsorship and Loyalty
+      title: 'Parrainage & Récompenses',
+      items: [
+        { id: 'sponsor', title: 'Parrainer un Ami', icon: Gift, action: 'navigate' },
+        { id: 'loyalty', title: 'Programme de Fidélité', icon: Star, action: 'navigate' },
       ]
     }
   ];
